@@ -1,4 +1,6 @@
 # Get from https://www.askpython.com/python/examples/easy-games-in-python
+import multiprocessing
+import streamlit as st
 
 import turtle
 import random
@@ -101,32 +103,45 @@ def go_left():
     if snake_dir != "right":
         snake_dir = "left"
  
- 
-screen = turtle.Screen()
-screen.setup(w, h)
-screen.title("Snake")
-screen.bgcolor("blue")
-screen.setup(500, 500)
-screen.tracer(0)
- 
- 
-pen = turtle.Turtle("square")
-pen.penup()
- 
- 
-food = turtle.Turtle()
-food.shape("square")
-food.color("yellow")
-food.shapesize(food_size / 20)
-food.penup()
- 
- 
-screen.listen()
-screen.onkey(go_up, "Up")
-screen.onkey(go_right, "Right")
-screen.onkey(go_down, "Down")
-screen.onkey(go_left, "Left")
- 
- 
-reset()
-turtle.done()
+
+def snake_game():
+    screen = turtle.Screen()
+    screen.setup(w, h)
+    screen.title("Snake")
+    screen.bgcolor("blue")
+    screen.setup(500, 500)
+    screen.tracer(0)
+    
+    
+    pen = turtle.Turtle("square")
+    pen.penup()
+    
+    
+    food = turtle.Turtle()
+    food.shape("square")
+    food.color("yellow")
+    food.shapesize(food_size / 20)
+    food.penup()
+    
+    
+    screen.listen()
+    screen.onkey(go_up, "Up")
+    screen.onkey(go_right, "Right")
+    screen.onkey(go_down, "Down")
+    screen.onkey(go_left, "Left")
+    
+    
+    reset()
+    turtle.done()
+
+st.title("Turtle App")
+title = st.text_input("Canvas Title", value="My Canvas")
+width = st.number_input("Canvas Width", value=500)
+height = st.number_input("Canvas Height", value=500)
+length = st.number_input("Square Length", value=200)
+clicked = st.button("Paint")
+
+t = multiprocessing.Process(target=snake_game, args=(title, width, height, length,))
+
+if clicked:
+   t.start()
