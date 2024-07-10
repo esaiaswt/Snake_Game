@@ -1,6 +1,5 @@
 # Get from https://www.askpython.com/python/examples/easy-games-in-python
 import multiprocessing
-import streamlit as st
 
 import turtle
 import random
@@ -134,14 +133,4 @@ def snake_game():
     reset()
     turtle.done()
 
-st.title("Turtle App")
-title = st.text_input("Canvas Title", value="My Canvas")
-width = st.number_input("Canvas Width", value=500)
-height = st.number_input("Canvas Height", value=500)
-length = st.number_input("Square Length", value=200)
-clicked = st.button("Paint")
-
-t = multiprocessing.Process(target=snake_game, args=(title, width, height, length,))
-
-if clicked:
-   t.start()
+snake_game()
